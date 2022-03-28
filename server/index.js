@@ -23,6 +23,10 @@ const io = new Server(PORT, {
   },
 });
 
+app.use("/", (req, res) => {
+  res.send("server");
+});
+
 io.on("connection", (socket) => {
   console.log("a user connected");
 
