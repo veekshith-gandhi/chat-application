@@ -3,7 +3,8 @@
 const express = require("express");
 const router = express.Router();
 
-const display = require("../controller/index.controller");
-router.get("/", display);
+router.get("/", (req, res) => {
+  res.send({ response: "Server is up and running." }).status(200);
+});
 
 module.exports = router;

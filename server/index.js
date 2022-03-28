@@ -11,6 +11,7 @@ const {
   removeUser,
   getUsersInRoom,
 } = require("./helper/index");
+const router = require("./routes/index.routes");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -23,9 +24,7 @@ const io = new Server(PORT, {
   },
 });
 
-app.use("/", (req, res) => {
-  res.send("server");
-});
+app.use(router);
 
 io.on("connection", (socket) => {
   console.log("a user connected");
