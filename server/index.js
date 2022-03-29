@@ -1,9 +1,9 @@
 /** @format */
 const express = require("express");
 const socketio = require("socket.io");
-// const http = require("http");
+const http = require("http");
 const cors = require("cors");
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 
 const {
   addUsers,
@@ -15,14 +15,18 @@ const router = require("./routes/index.routes");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
-// const server = http.createServer(app);
-// const io = socketio(server);
-
-const io = new Server(PORT, {
+const server = http.createServer(app);
+const io = socketio(server, {
   cors: {
     origin: "*",
   },
 });
+
+// const io = new Server(PORT, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
 
 app.use(router);
 
@@ -78,6 +82,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// server.listen(PORT, () => {
-//   console.log(`listening to PORT : ${PORT}`);
-// });
+server.listen(PORT, () => {
+  console.log(`listening to PORT : ${PORT}`);
+});
